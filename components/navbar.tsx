@@ -18,6 +18,8 @@ import { usePathname } from 'next/navigation';
 export function Navbar() {
   const pathname = usePathname();
 
+  const [isNavOpen, setIsNavOpen] = React.useState(false);
+
   const menuItems = [
     {
       label: 'PROJECTS',
@@ -45,13 +47,14 @@ export function Navbar() {
     <NextUINavBar
       disableAnimation
       maxWidth="full"
-      position="static"
+      position="sticky"
+      isMenuOpen={isNavOpen}
       isBlurred={false}
       classNames={{
         base: 'bg-transparent absolute',
-        // base: 'bg-transparent',
         wrapper:
-          'p-0 pt-[30px] px-[30px] md:pt-main-layout-t md:px-main-layout-x h-full',
+          'p-0 py-[15px] px-[30px] md:pt-main-layout-t md:px-main-layout-x h-full',
+        menu: 'mt-4 gap-4',
         item: [
           'flex',
           'relative',
@@ -109,17 +112,26 @@ export function Navbar() {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarMenu>
+      <NavbarMenu className="pt-8">
         {menuItems.map(({ label, href }, index) => (
           <NavbarMenuItem key={`${label}-${index}`}>
-            <Link className="w-full" href={`#${href}`} size="lg">
+            <Link
+              className={`w-full text-2xl group-hover:text-secondary hover:opacity-100
+                ${pathname.includes(href) ? 'text-secondary' : ''}`}
+              href={`#${href}`}
+              size="lg"
+              onClick={() => setIsNavOpen(false)}
+            >
               {label}
             </Link>
           </NavbarMenuItem>
         ))}
       </NavbarMenu>
       <NavbarContent className="sm:hidden" justify="end">
-        <NavbarMenuToggle />
+        <NavbarMenuToggle
+          className="min-h-14"
+          onClick={() => setIsNavOpen(!isNavOpen)}
+        />
       </NavbarContent>
     </NextUINavBar>
   );
