@@ -17,7 +17,7 @@ export const title = tv({
       md: "text-[2.3rem] lg:text-5xl leading-9",
       lg: "text-4xl lg:text-6xl",
       main: "w-fit text-[34px] sm:text-[46px] md:text-[60px] lg:text-[96px] leading-[41px] md:leading-[115px] tracking-[-2px]",
-      secondary: 'text-lg md:text-[53px] leading-lg md:leading-[56px] leading-[31px] tracking-[-2px]'
+      secondary: 'text-lg md:text-[53px] leading-lg md:leading-[56px] leading-[31px] tracking-0 md:tracking-[-2px]'
     },
     fullWidth: {
       true: "w-full block",

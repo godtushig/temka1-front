@@ -15,26 +15,29 @@ export default function AboutUsPage() {
   ];
 
   return (
-    <div className="relative w-full">
-      <div className="pt-36 md:pt-0 md:h-full flex flex-col items-center justify-between gap-28">
+    <div className="relative w-full h-screen md:h-full">
+      <div className="pt-36 md:pt-0 md:h-full flex flex-col items-center justify-between gap-14 md:gap-28">
         <h1
-          className={title({ class: 'right-dot uppercase mb-9', size: 'main' })}
+          className={title({
+            class: 'right-dot uppercase md:mb-9',
+            size: 'main',
+          })}
         >
           ABout US
         </h1>
-        <div className="flex items-center">
+        <div className="flex items-center mt-3 md:mt-0 gap-1.5 md:gap-0">
           <div className="flex flex-col text-main-2 tracking-[-2px] leading-[0.9]">
-            <p className="text-[34px] md:text-[94px]">WE</p>
-            <p className="text-[29px] md:text-[79px]">ARE</p>
+            <p className="text-[39px] md:text-[94px]">WE</p>
+            <p className="text-[34px] md:text-[79px]">ARE</p>
           </div>
-          <div className="flex flex-col text-[17px] md:text-[48px] leading-[1.1] text-left">
+          <div className="flex flex-col text-[22px] md:text-[48px] leading-[1.1] text-left">
             <p>CREATIVE</p>
             <p>PASSIONATE</p>
             <p>PROFFESIONAL</p>
           </div>
         </div>
 
-        <div className="container flex flex-col gap-10 px-28">
+        <div className="container flex flex-col gap-6 md:gap-10 px-7 md:px-28">
           {paragraphs.map((paragpraph) => (
             <p
               key={paragpraph}

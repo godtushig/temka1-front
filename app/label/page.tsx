@@ -45,6 +45,14 @@ export default function LabelPage() {
     router.push('/label/yo');
   };
 
+  const renderTeam = () => {
+    return (
+      <div className="grid grid-cols-3 md:grid-cols-4 gap-5 md:gap-x-20 md:gap-y-12">
+        {teamMembers.map(({ imgUrl }) => renderTeamMember({ imgUrl }))}
+      </div>
+    );
+  };
+
   const renderTeamMember = ({ imgUrl }: { imgUrl: string }) => {
     return (
       <div
@@ -71,50 +79,58 @@ export default function LabelPage() {
   };
 
   return (
-    <div className="relative w-full flex flex-col gap-28">
-      <section className="pt-36 md:pt-0 md:h-screen flex flex-col items-center justify-center gap-32">
+    <div className="relative w-full flex flex-col gap-20 md:gap-28">
+      <section className="pt-48 md:pt-0 md:h-screen flex flex-col items-center justify-center gap-32">
         <h1 className={title({ class: 'right-dot uppercase', size: 'main' })}>
           MMp Label
         </h1>
-        <div className="flex gap-8">
+        <div className="flex flex-col md:flex-row gap-8">
           {info.map(({ title, body }) => (
             <Card
               key={title}
-              className="flex-1 px-5 py-6 bg-[#191C26]"
+              className="flex-1 md:px-5 md:py-6 bg-[#191C26]"
               radius="none"
             >
               <CardHeader className="flex gap-1.5">
-                <IconRedDot />
-                <h4 className="font-medium uppercase text-[42px]">{title}</h4>
+                <IconRedDot height={8} width={8} />
+                <h4 className="font-medium uppercase text-[20px] md:text-[42px]">
+                  {title}
+                </h4>
               </CardHeader>
-              <CardBody className="font-light text-[26px]">{body}</CardBody>
+              <CardBody className="font-light ml-3 text-[9px] md:text-[26px]">
+                {body}
+              </CardBody>
             </Card>
           ))}
         </div>
       </section>
-      <section className="pt-36 md:pt-0 md:h-full flex flex-col items-center justify-between gap-12">
+      <section className="md:h-full flex flex-col items-center justify-between gap-12">
         <h1 className={title({ class: 'right-dot uppercase', size: 'main' })}>
           MMP TEAM
         </h1>
-        <div className="grid grid-cols-4 gap-x-20 gap-y-12">
-          {teamMembers.map(({ imgUrl }) => renderTeamMember({ imgUrl }))}
-        </div>
+        {renderTeam()}
       </section>
-      <section className="pt-36 md:pt-0 md:h-full flex flex-col items-center justify-between gap-12">
-        <h2 className={title({ class: 'uppercase', size: 'secondary' })}>
+      <section className=" md:h-full flex flex-col items-center justify-between gap-12">
+        <h2
+          className={title({
+            class: 'uppercase underlined after:w-1/2',
+            size: 'secondary',
+          })}
+        >
           stage team
         </h2>
-        <div className="grid grid-cols-4 gap-x-20 gap-y-12">
-          {teamMembers.map(({ imgUrl }) => renderTeamMember({ imgUrl }))}
-        </div>
+        {renderTeam()}
       </section>
-      <section className="pt-36 md:pt-0 md:h-full flex flex-col items-center justify-between gap-12">
-        <h2 className={title({ class: 'uppercase', size: 'secondary' })}>
+      <section className=" md:h-full flex flex-col items-center justify-between gap-12">
+        <h2
+          className={title({
+            class: 'uppercase underlined after:w-1/2',
+            size: 'secondary',
+          })}
+        >
           light team
         </h2>
-        <div className="grid grid-cols-4 gap-x-20 gap-y-12">
-          {teamMembers.map(({ imgUrl }) => renderTeamMember({ imgUrl }))}
-        </div>
+        {renderTeam()}
       </section>
     </div>
   );

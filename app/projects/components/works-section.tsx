@@ -8,7 +8,7 @@ const WorksSection: React.FC<WorksSectionProps> = () => {
   const works = [
     {
       imgUrl: '/main-section-images/ondo.png',
-      title: 'Khas bank',
+      title: 'Хас банк',
     },
     {
       imgUrl: '/main-section-images/ondo.png',
@@ -33,7 +33,7 @@ const WorksSection: React.FC<WorksSectionProps> = () => {
       <h1 className={title({ class: 'right-dot', size: 'main' })}>WORKS</h1>
       <div className="w-full justify-between grid grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-5 md:gap-x-8 md:gap-y-12">
         {works.map(({ imgUrl, title }) => (
-          <div key={title} className="flex flex-col gap-2">
+          <div key={title} className="flex flex-col gap-3.5">
             <div className="h-[190px] w-full md:size-[400px]">
               <Image
                 alt="a"

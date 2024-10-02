@@ -1,5 +1,5 @@
 'use client';
-import { Tab, Tabs } from '@nextui-org/react';
+import { Accordion, AccordionItem, Tab, Tabs } from '@nextui-org/react';
 import Image from 'next/image';
 
 import { title } from '@/components/primitives';
@@ -196,7 +196,44 @@ export default function RentPage() {
         <h1 className={title({ class: 'right-dot', size: 'main' })}>
           MMP RENT
         </h1>
-        <div className="w-full">
+        <div className="w-full md:hidden px-7">
+          <Accordion
+            variant="splitted"
+            itemClasses={{
+              base: '!bg-[#191C26] !rounded-none !border-none !shadow-none',
+              title: 'uppercase text-xs',
+            }}
+          >
+            {tabs.map(({ id, label, contents }) => (
+              <AccordionItem key={id} aria-label={label} title={label}>
+                {contents.map(({ imgUrl, title, body }) => (
+                  <div key={title} className="flex gap-2.5 mt-5">
+                    <div key={imgUrl} className="relative flex-1">
+                      <Image
+                        key={imgUrl}
+                        src={imgUrl}
+                        alt={imgUrl}
+                        width={0}
+                        height={0}
+                        sizes="50vw"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-4 md:gap-8 flex-1 text-start">
+                      <h4 className="text[20px] md:text-[53px] uppercase">
+                        {title}
+                      </h4>
+                      <p className="text-[10px] md:text-[26px] font-light uppercase">
+                        {body}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+        <div className="hidden md:block w-full">
           <Tabs
             variant="underlined"
             classNames={{
