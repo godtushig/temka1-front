@@ -1,16 +1,14 @@
-import Image from 'next/image';
-import { FunctionComponent } from 'react';
-import Link from 'next/link';
+"use client";
 
-import logo from '../public/logo.png';
+import Image from "next/image";
+import Link from "next/link";
+import { FunctionComponent } from "react";
 
-import {
-  FacebookIcon,
-  InstagramIcon,
-  SoundCloudIcon,
-  TwitterIcon,
-  YoutubeIcon,
-} from './icons';
+import logo from "../public/logo.png";
+
+import { SocialLink } from "@/api/entities";
+import { useGetFooterInfo, useGetSocials } from "@/hooks";
+import { htmlFrom, replaceNewLines } from "@/utilities/text";
 
 interface FooterProps {}
 export type FooterBasicInfo = {
@@ -18,6 +16,14 @@ export type FooterBasicInfo = {
   children?: React.ReactNode;
 };
 const Footer: FunctionComponent<FooterProps> = () => {
+  const { data: footerInfo } = useGetFooterInfo();
+  const { data: socialLinksData } = useGetSocials();
+
+  const workingHours = footerInfo?.WorkingHours?.split("\\n") || [];
+
+  //@ts-ignore
+  const socials: SocialLink[] = socialLinksData || [];
+
   const renderFooterInfo = ({ label, children }: FooterBasicInfo) => {
     return (
       <li className="flex flex-col gap-6 md:gap-10 w-full max-w-56 md:max-w-64">
@@ -36,29 +42,28 @@ const Footer: FunctionComponent<FooterProps> = () => {
 
         <ul className="flex flex-col md:flex-row gap-6 md:gap-16 text-start justify-center col-span-full md:col-span-7">
           {renderFooterInfo({
-            label: 'WORKING HOURS',
+            label: "WORKING HOURS",
             children: (
               <div className="flex flex-col gap-3">
-                <p className="md:text-xl font-light">Mon - Fri : 10am - 7pm</p>
-                <p className="md:text-xl font-light"> Sat - Sun : Holiday</p>
+                <p className="md:text-xl font-light">{workingHours[0]}</p>
+                <p className="md:text-xl font-light"> {workingHours?.[1]}</p>
               </div>
             ),
           })}
           {renderFooterInfo({
-            label: 'ADDRESS',
+            label: "ADDRESS",
             children: (
               <p className="md:text-xl font-light">
-                11A, Usnii gudam, 3 Khoroo,Sukhbaatar district Ulaanbaatar,
-                Mongolia
+                {htmlFrom(replaceNewLines(footerInfo?.Address || ""))}
               </p>
             ),
           })}
           {renderFooterInfo({
-            label: 'CONTACT',
+            label: "CONTACT",
             children: (
               <div className="flex flex-col gap-3">
-                <p className="md:text-xl font-light">+976 99082515</p>
-                <p className="md:text-xl font-light">mmp.uuree@gmail.com</p>
+                <p className="md:text-xl font-light">{footerInfo?.Phone}</p>
+                <p className="md:text-xl font-light">{footerInfo?.Email}</p>
               </div>
             ),
           })}
@@ -69,31 +74,22 @@ const Footer: FunctionComponent<FooterProps> = () => {
           </h5>
           <div className="flex flex-col gap-11 ">
             <ul className="flex flex-wrap gap-[15px] md:gap-5">
-              <li className="p-2 md:p-4 rounded-full bg-white size-min cursor-pointer">
-                <Link href="fb.com">
-                  <FacebookIcon className="size-6 md:size-8" />
+              {socials?.map(({ Url, PlatformType }) => (
+                <Link key={Url} href={Url}>
+                  <li className="p-2 md:p-4 rounded-full bg-white size-min cursor-pointer">
+                    <div className="size-6 md:size-8">
+                      <Image
+                        alt={PlatformType}
+                        src={`http://www.google.com/s2/favicons?domain=${Url}&sz=128`}
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        style={{ width: "100%", height: "auto" }} // optional
+                      />
+                    </div>
+                  </li>
                 </Link>
-              </li>
-              <li className="p-2 md:p-4 rounded-full bg-white size-min">
-                <Link href="fb.com">
-                  <InstagramIcon className="size-6 md:size-8" />
-                </Link>
-              </li>
-              <li className="p-2 md:p-4 rounded-full bg-white size-min">
-                <Link href="fb.com">
-                  <YoutubeIcon className="size-6 md:size-8" />
-                </Link>
-              </li>
-              <li className="p-2 md:p-4 rounded-full bg-white size-min">
-                <Link href="fb.com">
-                  <SoundCloudIcon className="size-6 md:size-8" />
-                </Link>
-              </li>
-              <li className="p-2 md:p-4 rounded-full bg-white size-min">
-                <Link href="fb.com">
-                  <TwitterIcon className="size-6 md:size-8" />
-                </Link>
-              </li>
+              ))}
             </ul>
           </div>
         </div>

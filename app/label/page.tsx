@@ -1,94 +1,84 @@
-'use client';
+"use client";
 
-import IconRedDot from '@/components/icons/red-dot';
-import { title } from '@/components/primitives';
-import { Card, CardBody, CardHeader } from '@nextui-org/react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { Label, TeamMember, TeamMemberWithTeam } from "@/api/entities";
+import IconRedDot from "@/components/icons/red-dot";
+import { title } from "@/components/primitives";
+import {
+  useGetLabels,
+  useGetTeamMembers,
+  useGetTeamMembersWithTeam,
+} from "@/hooks";
+import { htmlFrom } from "@/utilities/text";
+import { Card, CardBody, CardHeader } from "@nextui-org/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function LabelPage() {
   const router = useRouter();
 
-  const teamMembers = [
-    { imgUrl: '/itgelyo.png' },
-    { imgUrl: '/itgelyo.png' },
-    { imgUrl: '/itgelyo.png' },
-    { imgUrl: '/itgelyo.png' },
-    { imgUrl: '/itgelyo.png' },
-    { imgUrl: '/itgelyo.png' },
-  ];
-  const info = [
-    {
-      title: 'record label',
-      body: ` MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL WAS FOUNDED IN THE
-                EARLY 2000S. OUR ARTISTS AND DJS HAVE IT’S OWN STYLE OF MUSIC
-                AND EVENTS. THE LABEL RELEASE MUSIC RECORDS, DJ MIX SETS, LIVE
-                PERFORMANCES AND PODCASTS.`,
-    },
-    {
-      title: 'record label',
-      body: ` MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL WAS FOUNDED IN THE
-                EARLY 2000S. OUR ARTISTS AND DJS HAVE IT’S OWN STYLE OF MUSIC
-                AND EVENTS. THE LABEL RELEASE MUSIC RECORDS, DJ MIX SETS, LIVE
-                PERFORMANCES AND PODCASTS.`,
-    },
-    {
-      title: 'record label',
-      body: ` MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL WAS FOUNDED IN THE
-                EARLY 2000S. OUR ARTISTS AND DJS HAVE IT’S OWN STYLE OF MUSIC
-                AND EVENTS. THE LABEL RELEASE MUSIC RECORDS, DJ MIX SETS, LIVE
-                PERFORMANCES AND PODCASTS.`,
-    },
-  ];
+  const { data: labelsData } = useGetLabels({
+    query: { offset: 0, limit: 100 },
+  });
+  const { data: teamsWithMembersData } = useGetTeamMembersWithTeam();
+  //@ts-ignore
+  const teamsWithMembers: TeamMemberWithTeam[] =
+    //@ts-ignore
+    teamsWithMembersData?.Teams || [];
 
-  const onClick = () => {
-    router.push('/label/yo');
-  };
+  //@ts-ignore
+  const labels: Label[] = labelsData || [];
 
-  const renderTeam = () => {
+  const labelsInfo = labels?.map((label) => ({
+    title: label?.Title,
+    body: htmlFrom(label?.Description),
+  }));
+
+  const renderTeam = (members: TeamMember[]) => {
     return (
       <div className="grid grid-cols-3 md:grid-cols-4 gap-5 md:gap-x-20 md:gap-y-12">
-        {teamMembers.map(({ imgUrl }) => renderTeamMember({ imgUrl }))}
+        {members?.map(({ ImageUrl, MemberId }) =>
+          renderTeamMember({ imgUrl: ImageUrl, memberId: MemberId })
+        )}
       </div>
     );
   };
 
-  const renderTeamMember = ({ imgUrl }: { imgUrl: string }) => {
+  const renderTeamMember = ({
+    imgUrl,
+    memberId,
+  }: {
+    imgUrl: string;
+    memberId: number;
+  }) => {
     return (
-      <div
-        key={imgUrl}
-        className="relative"
-        tabIndex={0}
-        role="button"
-        onClick={onClick}
-        onKeyUp={(e) => {
-          e.key === 'Enter' && onClick();
-        }}
-      >
-        <Image
-          key={imgUrl}
-          src={imgUrl}
-          alt={imgUrl}
-          width={0}
-          height={0}
-          sizes="100%"
-          className="min-w-full w-full h-full object-cover"
-        />
-      </div>
+      <Link key={memberId} href={`/label/[memberId]`} as={`/label/${memberId}`}>
+        <div key={imgUrl} className="relative" tabIndex={0} role="button">
+          <Image
+            key={imgUrl}
+            src={`https://s3.cloud.mn/mongol-mix/${imgUrl}`}
+            alt={imgUrl}
+            width={0}
+            height={0}
+            sizes="100%"
+            className="min-w-full w-full h-full object-cover"
+          />
+        </div>
+      </Link>
     );
   };
 
   return (
     <div className="relative w-full flex flex-col gap-20 md:gap-28">
       <section className="pt-48 md:pt-0 md:h-screen flex flex-col items-center justify-center gap-32">
-        <h1 className={title({ class: 'right-dot uppercase', size: 'main' })}>
-          MMp Label
+        <h1 className={title({ class: "right-dot uppercase", size: "main" })}>
+          MMP Label
         </h1>
-        <div className="flex flex-col md:flex-row gap-8">
-          {info.map(({ title, body }) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-x-20 md:gap-y-12 ">
+          {labelsInfo.map(({ title, body }) => (
             <Card
               key={title}
-              className="flex-1 md:px-5 md:py-6 bg-[#191C26]"
+              className="col-span-1 md:px-5 md:py-6 bg-[#191C26]"
               radius="none"
             >
               <CardHeader className="flex gap-1.5">
@@ -104,34 +94,17 @@ export default function LabelPage() {
           ))}
         </div>
       </section>
-      <section className="md:h-full flex flex-col items-center justify-between gap-12">
-        <h1 className={title({ class: 'right-dot uppercase', size: 'main' })}>
-          MMP TEAM
-        </h1>
-        {renderTeam()}
-      </section>
-      <section className=" md:h-full flex flex-col items-center justify-between gap-12">
-        <h2
-          className={title({
-            class: 'uppercase underlined after:w-1/2',
-            size: 'secondary',
-          })}
+      {teamsWithMembers?.map(({ TeamId, Members, Name }) => (
+        <section
+          key={TeamId}
+          className="md:h-full flex flex-col items-center justify-between gap-12"
         >
-          stage team
-        </h2>
-        {renderTeam()}
-      </section>
-      <section className=" md:h-full flex flex-col items-center justify-between gap-12">
-        <h2
-          className={title({
-            class: 'uppercase underlined after:w-1/2',
-            size: 'secondary',
-          })}
-        >
-          light team
-        </h2>
-        {renderTeam()}
-      </section>
+          <h1 className={title({ class: "right-dot uppercase", size: "main" })}>
+            {Name}
+          </h1>
+          {renderTeam(Members as TeamMember[])}
+        </section>
+      ))}
     </div>
   );
 }

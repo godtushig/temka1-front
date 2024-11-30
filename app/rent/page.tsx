@@ -1,234 +1,83 @@
-'use client';
-import { Accordion, AccordionItem, Tab, Tabs } from '@nextui-org/react';
-import Image from 'next/image';
+"use client";
+import { Accordion, AccordionItem, Tab, Tabs } from "@nextui-org/react";
+import Image from "next/image";
 
-import { title } from '@/components/primitives';
+import { title } from "@/components/primitives";
+import { useGetRentCategories, useGetRents } from "@/hooks";
+import { RentCategory } from "@/api/entities";
+import { htmlFrom } from "@/utilities/text";
 
 export default function RentPage() {
-  let tabs = [
-    {
-      id: 'photos',
-      label: 'light',
-      contents: [
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-      ],
+  const { data: categoriesData } = useGetRentCategories({
+    query: {
+      offset: 0,
+      limit: 200,
     },
-    {
-      id: 'sasd',
-      label: 'led',
-      contents: [
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-      ],
+  });
+
+  const { data: rentsData } = useGetRents({
+    query: {
+      offset: 0,
+      limit: 200,
     },
-    {
-      id: 'geg',
-      label: 'stage',
-      contents: [
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-      ],
-    },
-    {
-      id: 'yt',
-      label: 'light',
-      contents: [
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-      ],
-    },
-    {
-      id: 'zxcz',
-      label: 'light',
-      contents: [
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-      ],
-    },
-    {
-      id: 'ukjuj',
-      label: 'light',
-      contents: [
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-      ],
-    },
-    {
-      id: 'ioio',
-      label: 'light',
-      contents: [
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-        {
-          imgUrl: '/main-section-images/mmp.png',
-          title: 'Retro light',
-          body: 'MMP LABEL, A PIONEER ELECTRONIC MUSIC LABEL BASED IN MONGOLIA. MMP RECORDLABEL HAS BEEN ESTABLISHING DIGITAL DISTRIBUTION, ARTIST MANAGEMENT,MUSIC MARKETING, SOUND AND VIDEO RECORDINGS SINCE 2000. OUR ARTISTS AND DJSHAVE ITS OWN STYLE OF MUSIC AND EVENTS. THE LABEL RELEASES MUSIC RECORDS,SETS, LIVE MUSIC SHOWS, PODCASTS BY ARTISTS AND DJS.',
-        },
-      ],
-    },
-  ];
+  });
+
+  //@ts-ignore
+  const categories: RentCategory[] = categoriesData || [];
+  const rents = rentsData?.Data || [];
+
+  const tabs = categories.map((category) => ({
+    id: category.CategoryId,
+    label: category.CategoryName,
+    contents: rents.filter((rent) => rent.CategoryId === category.CategoryId),
+  }));
 
   return (
     <div className="relative w-full">
       <div className="pt-36 md:pt-0 md:h-full flex flex-col items-center justify-between gap-32">
-        <h1 className={title({ class: 'right-dot', size: 'main' })}>
+        <h1 className={title({ class: "right-dot", size: "main" })}>
           MMP RENT
         </h1>
         <div className="w-full md:hidden px-7">
           <Accordion
             variant="splitted"
             itemClasses={{
-              base: '!bg-[#191C26] !rounded-none !border-none !shadow-none',
-              title: 'uppercase text-xs',
+              base: "!bg-[#191C26] !rounded-none !border-none !shadow-none",
+              title: "uppercase text-xs",
             }}
           >
             {tabs.map(({ id, label, contents }) => (
               <AccordionItem key={id} aria-label={label} title={label}>
-                {contents.map(({ imgUrl, title, body }) => (
-                  <div key={title} className="flex gap-2.5 mt-5">
-                    <div key={imgUrl} className="relative flex-1">
-                      <Image
-                        key={imgUrl}
-                        src={imgUrl}
-                        alt={imgUrl}
-                        width={0}
-                        height={0}
-                        sizes="50vw"
-                        className="w-full h-full object-cover"
-                      />
+                {contents.map(
+                  ({
+                    ImageUrl: imgUrl,
+                    ItemId,
+                    Title: title,
+                    Description: body,
+                  }) => (
+                    <div key={ItemId} className="flex gap-2.5 mt-5">
+                      <div key={imgUrl} className="relative flex-1">
+                        <Image
+                          key={imgUrl}
+                          src={imgUrl}
+                          alt={label}
+                          width={0}
+                          height={0}
+                          sizes="50vw"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-4 md:gap-8 flex-1 text-start">
+                        <h4 className="text[20px] md:text-[53px] uppercase">
+                          {title}
+                        </h4>
+                        <div className="text-[10px] md:text-[26px] font-light uppercase">
+                          {htmlFrom(body)}
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex flex-col gap-4 md:gap-8 flex-1 text-start">
-                      <h4 className="text[20px] md:text-[53px] uppercase">
-                        {title}
-                      </h4>
-                      <p className="text-[10px] md:text-[26px] font-light uppercase">
-                        {body}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  )
+                )}
               </AccordionItem>
             ))}
           </Accordion>
@@ -237,8 +86,8 @@ export default function RentPage() {
           <Tabs
             variant="underlined"
             classNames={{
-              base: 'w-full justify-center bg-[#191C26] pt-2',
-              cursor: 'bg-main-2',
+              base: "w-full justify-center bg-[#191C26] pt-2",
+              cursor: "bg-main-2",
             }}
             items={tabs}
           >
@@ -252,30 +101,37 @@ export default function RentPage() {
                 }
               >
                 <div className="main-section flex flex-col">
-                  {contents.map(({ imgUrl, title, body }) => (
-                    <div
-                      key={title}
-                      className="flex even:flex-row-reverse gap-8 pt-20"
-                    >
-                      <div key={imgUrl} className="relative flex-1 max-h-96">
-                        <Image
-                          key={imgUrl}
-                          src={imgUrl}
-                          alt={imgUrl}
-                          width={0}
-                          height={0}
-                          sizes="100vw"
-                          className="min-w-full w-full h-full object-cover"
-                        />
+                  {contents.map(
+                    ({
+                      ImageUrl: imgUrl,
+                      ItemId,
+                      Title: title,
+                      Description: body,
+                    }) => (
+                      <div
+                        key={ItemId}
+                        className="flex even:flex-row-reverse gap-8 pt-20"
+                      >
+                        <div key={imgUrl} className="relative flex-1 max-h-96">
+                          <Image
+                            key={imgUrl}
+                            src={imgUrl}
+                            alt={title}
+                            width={0}
+                            height={0}
+                            sizes="100vw"
+                            className="min-w-full w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex flex-col gap-8 flex-1 text-start">
+                          <h4 className="text-[53px] uppercase">{title}</h4>
+                          <div className="text-[26px] font-light uppercase">
+                            {htmlFrom(body)}
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex flex-col gap-8 flex-1 text-start">
-                        <h4 className="text-[53px] uppercase">{title}</h4>
-                        <p className="text-[26px] font-light uppercase">
-                          {body}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
               </Tab>
             )}

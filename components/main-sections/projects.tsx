@@ -1,31 +1,35 @@
-'use client';
-import Image from 'next/image';
-import Button from '../common/button';
-import Carousel from '../common/carousel';
-import RightArrow from '../icons/right-arrow';
-import { subtitle, title } from '../primitives';
-import { useCallback } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import { DotButton, useDotButton } from '../common/EmblaCarouselDotButton';
-
-const images = [
-  {
-    url: '/21112.jpg',
-    name: '21112.jpg',
-  },
-  {
-    url: '/1.jpg',
-    name: 'f1',
-  },
-];
+"use client";
+import Image from "next/image";
+import Button from "../common/button";
+import Carousel from "../common/carousel";
+import RightArrow from "../icons/right-arrow";
+import { subtitle, title } from "../primitives";
+import { useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { DotButton, useDotButton } from "../common/EmblaCarouselDotButton";
+import { useGetProjects } from "@/hooks";
 
 const Projects = () => {
+  const { data: projectsData } = useGetProjects({
+    query: { offset: 0, limit: 100 },
+  });
+
+  const projects = projectsData?.Data || [];
+
+  const images =
+    projects?.map((project) => ({
+      url: project.CoverImageUrl,
+      name: project.Name,
+    })) || [];
+
   const [emblaRef, embla] = useEmblaCarousel({
-    align: 'start',
+    align: "start",
     loop: true,
     skipSnaps: false,
     inViewThreshold: 0.7,
   });
+
+  const slideIndex = embla?.selectedScrollSnap() || 0;
 
   const scrollPrev = useCallback(() => {
     if (embla) embla.scrollPrev();
@@ -62,18 +66,13 @@ const Projects = () => {
       </div>
       <div className="h-screen flex flex-col justify-center items-start gap-4 md:ml-24 py-8 md:py-10 relative mt-auto z-10">
         <div className="text-left flex flex-col justify-start items-center md:inline-block relative mb-32 md:mb-0">
-          <h1 className={title({ class: 'right-dot', size: 'main' })}>
-            PROJECTS
+          <h1 className={title({ class: "right-dot", size: "main" })}>
+            {projects?.[slideIndex]?.Name}
           </h1>
           <h2
-            className={`uppercase max-w-[70%] text-center md:text-left ${subtitle({ class: 'mt-3 md:mt-8', size: 'main' })}`}
+            className={`uppercase max-w-[70%] text-center md:text-left ${subtitle({ class: "mt-3 md:mt-8", size: "main" })}`}
           >
-            SILENCE WHITE PARTY HAS FOUNDED BY MONGOL MIX PROJECT LABEL WHICH IS
-            BASED IN ULAANBAATAR, MONGOLIA. THE DELICACY OF THE PARTY IS ALL
-            WHITE AND HAS BEEN SPREADING POSITIVE ENERGY THROUGH ELECTRONIC
-            DANCE MUSIC EVERY YEAR SINCE 2005. EVERY YEAR, IT HAS ITS OWN THEME
-            AND CONCEPT BUT ALWAYS BEEN UNDER THE MOTTO OF “SAVE THE PLANET,
-            PEACE, FREEDOM AND UNITY”.
+            {projects?.[slideIndex]?.Description}
           </h2>
 
           <Button withRightIcon className="font-light md:hidden left-0 top-16">
@@ -85,8 +84,8 @@ const Projects = () => {
           {scrollSnaps.map((_, index) => (
             <DotButton
               key={index}
-              className={'embla__dot'.concat(
-                index === selectedIndex ? ' embla__dot--selected' : ''
+              className={"embla__dot".concat(
+                index === selectedIndex ? " embla__dot--selected" : ""
               )}
               onClick={() => onDotButtonClick(index)}
             />

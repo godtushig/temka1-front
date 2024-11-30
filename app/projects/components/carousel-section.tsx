@@ -1,35 +1,31 @@
-'use client';
-import { useCallback, useEffect, useState } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import { EmblaCarouselType } from 'embla-carousel';
-import Image from 'next/image';
+"use client";
+import { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { EmblaCarouselType } from "embla-carousel";
+import Image from "next/image";
 
-import Button from '@/components/common/button';
-import { Thumb } from '@/components/main-sections/videos';
+import Button from "@/components/common/button";
+import { Thumb } from "@/components/main-sections/videos";
 
 interface CarouselSectionProps {}
 
 const CarouselSection: React.FC<CarouselSectionProps> = () => {
   const slides = [
     {
-      url: '/main-section-images/news/0.png',
-      name: 'f',
+      url: "/main-section-images/news/0.png",
+      name: "f",
     },
     {
-      url: '/main-section-images/news/0.png',
-      name: 'f1',
+      url: "/main-section-images/news/0.png",
+      name: "f1",
     },
     {
-      url: '/main-section-images/news/0.png',
-      name: 'f2',
+      url: "/main-section-images/news/0.png",
+      name: "f2",
     },
     {
-      url: '/main-section-images/news/0.png',
-      name: 'f3',
-    },
-    {
-      url: '/main-section-images/news/0.png',
-      name: 'f4',
+      url: "/main-section-images/news/0.png",
+      name: "f3",
     },
   ];
 
@@ -38,7 +34,7 @@ const CarouselSection: React.FC<CarouselSectionProps> = () => {
 
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel({});
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
-    containScroll: 'keepSnaps',
+    containScroll: "keepSnaps",
     dragFree: true,
   });
 
@@ -75,10 +71,10 @@ const CarouselSection: React.FC<CarouselSectionProps> = () => {
     onSelect();
     onScroll(emblaMainApi);
     emblaMainApi
-      .on('reInit', onScroll)
-      .on('scroll', onScroll)
-      .on('slideFocus', onScroll);
-    emblaMainApi.on('select', onSelect).on('reInit', onSelect);
+      .on("reInit", onScroll)
+      .on("scroll", onScroll)
+      .on("slideFocus", onScroll);
+    emblaMainApi.on("select", onSelect).on("reInit", onSelect);
   }, [emblaMainApi, onSelect]);
 
   return (
@@ -123,7 +119,7 @@ const CarouselSection: React.FC<CarouselSectionProps> = () => {
                 />
               </div>
               <span className="text-[50px] leading-[60px]">
-                {parseInt(String(Math.floor(scrollProgress) / 20))}
+                {parseInt(String(Math.floor(selectedIndex + 1)))}
               </span>
             </div>
 

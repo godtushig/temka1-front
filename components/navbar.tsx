@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 import {
   Navbar as NextUINavBar,
   NavbarBrand,
@@ -9,11 +9,12 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
-} from '@nextui-org/react';
+} from "@nextui-org/react";
 
-import Button from './common/button';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import Button from "./common/button";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import LanguageSwitcher from "./common/language-toggle";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -22,24 +23,24 @@ export function Navbar() {
 
   const menuItems = [
     {
-      label: 'PROJECTS',
-      href: 'projects',
+      label: "PROJECTS",
+      href: "projects",
     },
     {
-      label: 'MMP RENT',
-      href: 'rent',
+      label: "MMP RENT",
+      href: "rent",
     },
     {
-      label: 'MMP LABEL',
-      href: 'label',
+      label: "MMP LABEL",
+      href: "label",
     },
     {
-      label: 'ABOUT US',
-      href: 'about-us',
+      label: "ABOUT US",
+      href: "about-us",
     },
     {
-      label: 'CONTACT US',
-      href: 'contact-us',
+      label: "CONTACT US",
+      href: "contact-us",
     },
   ];
 
@@ -51,23 +52,23 @@ export function Navbar() {
       isMenuOpen={isNavOpen}
       isBlurred={false}
       classNames={{
-        base: 'bg-transparent absolute',
+        base: "bg-transparent absolute",
         wrapper:
-          'p-0 py-[15px] px-[30px] md:pt-main-layout-t md:px-main-layout-x h-full',
-        menu: 'mt-4 gap-4',
+          "p-0 py-[15px] px-[30px] md:pt-main-layout-t md:px-main-layout-x h-full",
+        menu: "mt-4 gap-4",
         item: [
-          'flex',
-          'relative',
-          'h-full',
-          'items-center',
+          "flex",
+          "relative",
+          "h-full",
+          "items-center",
           "data-[active=true]:after:content-['']",
-          'data-[active=true]:after:absolute',
-          'data-[active=true]:after:bottom-0',
-          'data-[active=true]:after:left-0',
-          'data-[active=true]:after:right-0',
-          'data-[active=true]:after:h-[2px]',
-          'data-[active=true]:after:rounded-[2px]',
-          'data-[active=true]:after:bg-primary',
+          "data-[active=true]:after:absolute",
+          "data-[active=true]:after:bottom-0",
+          "data-[active=true]:after:left-0",
+          "data-[active=true]:after:right-0",
+          "data-[active=true]:after:h-[2px]",
+          "data-[active=true]:after:rounded-[2px]",
+          "data-[active=true]:after:bg-primary",
         ],
       }}
     >
@@ -81,7 +82,7 @@ export function Navbar() {
       <NavbarBrand className="hidden sm:flex">
         {/* <p className="font-bold text-inherit">ACME</p> */}
         <Link href="/">
-          <Image alt="logo" src="/logo.png" width={190} height={50} />{' '}
+          <Image alt="logo" src="/logo.png" width={190} height={50} />{" "}
         </Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-10" justify="center">
@@ -96,7 +97,7 @@ export function Navbar() {
             <Link
               href={`/${href}`}
               className={`text-2xl group-hover:text-secondary hover:opacity-100
-                ${pathname.includes(href) ? 'text-secondary' : ''}`}
+                ${pathname.includes(href) ? "text-secondary" : ""}`}
             >
               {label}
             </Link>
@@ -106,9 +107,7 @@ export function Navbar() {
 
       <NavbarContent justify="end" className="hidden md:flex">
         <NavbarItem className="w-min">
-          <Button as={Link} href="#">
-            EN/MN
-          </Button>
+          <LanguageSwitcher />
         </NavbarItem>
       </NavbarContent>
 
@@ -117,7 +116,7 @@ export function Navbar() {
           <NavbarMenuItem key={`${label}-${index}`}>
             <Link
               className={`w-full text-2xl group-hover:text-secondary hover:opacity-100
-                ${pathname.includes(href) ? 'text-secondary' : ''}`}
+                ${pathname.includes(href) ? "text-secondary" : ""}`}
               href={`#${href}`}
               size="lg"
               onClick={() => setIsNavOpen(false)}

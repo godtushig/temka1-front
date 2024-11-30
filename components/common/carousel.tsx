@@ -1,12 +1,15 @@
-'use client';
-import React, { useCallback } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import { cn } from '@nextui-org/theme';
-import Image from 'next/image';
+"use client";
+import React, { useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { cn } from "@nextui-org/theme";
+import Image from "next/image";
 
 export type MediaProps = {
+  index?: number;
   url: string;
-  name: string;
+  name?: string;
+  title?: string;
+  description?: string;
 };
 
 type Props = {
@@ -26,7 +29,7 @@ const Carousel: React.FC<Props> = ({
   slides,
   className,
 }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ container: 'z-0' });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ container: "z-0" });
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -53,18 +56,18 @@ const Carousel: React.FC<Props> = ({
       <div className="absolute h-full w-full">
         <Image
           src={url}
-          alt={name}
+          alt={name || ""}
           width={0}
           height={0}
           sizes="100vw"
-          style={{ width: '100%', height: 'auto' }}
+          style={{ width: "100%", height: "auto" }}
         />
       </div>
     );
   };
 
   return (
-    <div className={cn('embla', className)}>
+    <div className={cn("embla", className)}>
       <div ref={emblaRef} className="embla__viewport">
         <div className="embla__container">
           {slides.map(({ url, name, renderer }) => (
