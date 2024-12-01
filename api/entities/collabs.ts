@@ -1,6 +1,4 @@
 import { z } from "zod";
-import { dateSchema } from "@/utilities/date";
-import { phoneNumberSchema } from "@/utilities/phone-number";
 
 const collaboratorContentSchema = z.object({
   CollaboratorId: z.number(),

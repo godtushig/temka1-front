@@ -1,6 +1,4 @@
-import { z } from 'zod';
-import { dateSchema } from '@/utilities/date';
-import { phoneNumberSchema } from '@/utilities/phone-number';
+import { z } from "zod";
 
 export const Project = z.object({
   BannerImageUrl: z.string().url(),
@@ -18,14 +16,12 @@ export const Project = z.object({
   ProjectId_2: z.number().int(),
 });
 
-
 export const ProjectResponse = z.object({
   Data: z.array(Project),
   RowCount: z.number().int(),
 });
 
 export type Project = z.infer<typeof Project>;
-
 
 export const ProjectDetail = z.object({
   BannerImageUrl: z.string().url(),
@@ -45,16 +41,17 @@ export const ProjectDetail = z.object({
       Body: z.string(),
     })
   ),
-  ProjectImages: z.array(
-    z.object({
-      ImageId: z.number().int(),
-      ProjectId: z.number().int(),
-      ImageUrl: z.string().url(),
-      ImageType: z.string(),
-    })
-  ).nullable(),
+  ProjectImages: z
+    .array(
+      z.object({
+        ImageId: z.number().int(),
+        ProjectId: z.number().int(),
+        ImageUrl: z.string().url(),
+        ImageType: z.string(),
+      })
+    )
+    .nullable(),
 });
-
 
 export type ProjectDetail = z.infer<typeof ProjectDetail>;
 
